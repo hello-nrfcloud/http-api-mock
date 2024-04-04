@@ -1,3 +1,0 @@
-{
-  "app": "npx tsx --no-warnings cdk/http-api-mock.ts"
-}

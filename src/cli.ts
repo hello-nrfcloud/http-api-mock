@@ -5,6 +5,8 @@ import chalk from 'chalk'
 import { stackOutput } from '@nordicsemiconductor/cloudformation-helpers'
 import type { StackOutputs } from '../cdk/Stack.js'
 import { CloudFormationClient } from '@aws-sdk/client-cloudformation'
+import path, { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const die = (err: Error): void => {
 	console.error('')
@@ -16,6 +18,11 @@ const die = (err: Error): void => {
 
 process.on('uncaughtException', die)
 process.on('unhandledRejection', die)
+
+const cdkApp = () => [
+	'--app',
+	`"npx tsx --no-warnings ${path.join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'cdk', 'http-api-mock.ts')}"`,
+]
 
 export const cli = async (): Promise<void> => {
 	await whoAmI()
@@ -32,7 +39,7 @@ export const cli = async (): Promise<void> => {
 
 	await run({
 		command: 'npx',
-		args: ['cdk', 'deploy', '--require-approval', 'never'],
+		args: ['cdk', ...cdkApp(), 'deploy', '--require-approval', 'never'],
 		env: {
 			STACK_NAME: stackName,
 			...process.env,
@@ -65,7 +72,7 @@ const destroy = async (stackName: string) => {
 	console.error(chalk.yellow(`Stack name`), chalk.green(stackName))
 	await run({
 		command: 'npx',
-		args: ['cdk', 'destroy', '-f'],
+		args: ['cdk', ...cdkApp(), 'destroy', '-f'],
 		env: {
 			STACK_NAME: stackName,
 			...process.env,
