@@ -12,6 +12,7 @@ new HTTPAPIMockApp(stackName, {
 		httpApiMock: await packLambdaFromPath(
 			'httpApiMock',
 			'cdk/resources/http-api-mock-lambda.ts',
+			undefined,
 			path.join(dirname(fileURLToPath(import.meta.url)), '..', '..'),
 		),
 	},
