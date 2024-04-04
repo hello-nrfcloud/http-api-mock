@@ -41,6 +41,8 @@ export const cli = async (): Promise<void> => {
 			debug: (msg) => console.error(chalk.blueBright('[CDK]'), chalk.blue(msg)),
 		},
 	})
+
+	await describe(stackName)
 }
 
 const whoAmI = async (): Promise<{ Account: string }> => {
