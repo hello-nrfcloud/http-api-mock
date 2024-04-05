@@ -14,6 +14,7 @@ import { URLSearchParams } from 'url'
 import { logger } from '@hello.nrfcloud.com/lambda-helpers/logger'
 import { checkMatchingQueryParams } from './checkMatchingQueryParams.js'
 import { splitMockResponse } from './splitMockResponse.js'
+import { sortQueryString } from '../../src/sortQueryString.js'
 
 const db = new DynamoDBClient({})
 const log = logger('httpApiMock')
@@ -29,10 +30,10 @@ export const handler = async (
 					event.queryStringParameters as Record<string, string>,
 				)
 			: undefined
-	const resource = event.path.replace(/^\//, '')
-	const pathWithQuery = `${resource}${
-		query !== undefined ? `?${query.toString()}` : ''
-	}`
+	const path = event.path.replace(/^\//, '')
+	const pathWithQuery = sortQueryString(
+		`${path}${query !== undefined ? `?${query.toString()}` : ''}`,
+	)
 
 	await db.send(
 		new PutItemCommand({
@@ -53,7 +54,7 @@ export const handler = async (
 				path: {
 					S: pathWithQuery,
 				},
-				resource: { S: resource },
+				resource: { S: path },
 				query:
 					query === undefined
 						? { NULL: true }

@@ -1,5 +1,6 @@
 import { PutItemCommand, type DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { marshall } from '@aws-sdk/util-dynamodb'
+import { sortQueryString } from './sortQueryString.js'
 
 export type Response = {
 	// e.g. 'GET'
@@ -24,7 +25,7 @@ export const registerResponse = async (
 			TableName: responsesTable,
 			Item: marshall(
 				{
-					methodPathQuery: `${response.method} ${response.path}`,
+					methodPathQuery: `${response.method} ${sortQueryString(response.path)}`,
 					timestamp: new Date().toISOString(),
 					statusCode: response.statusCode,
 					body: response.body,
