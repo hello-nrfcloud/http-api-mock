@@ -12,7 +12,6 @@
   },
   "type": "module",
   "scripts": {
-    "test": "tsx --no-warnings --test ./src/*.spec.ts",
     "prepare": "husky",
     "prepublishOnly": "npx tsc --noEmit false --outDir ./dist -d"
   },
@@ -33,10 +32,10 @@
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@bifravst/eslint-config-typescript": "6.0.18",
+    "@bifravst/eslint-config-typescript": "6.0.19",
     "@bifravst/prettier-config": "1.0.0",
     "@commitlint/config-conventional": "19.1.0",
-    "@types/aws-lambda": "8.10.136",
+    "@types/aws-lambda": "8.10.137",
     "@types/node": "20.12.4",
     "husky": "9.0.11"
   },
@@ -87,19 +86,19 @@
     "README.md"
   ],
   "prettier": "@bifravst/prettier-config",
-  "dependencies": {
-    "@aws-sdk/client-cloudformation": "3.548.0",
-    "@aws-sdk/client-dynamodb": "3.540.0",
-    "@aws-sdk/client-sts": "3.540.0",
-    "@aws-sdk/util-dynamodb": "3.540.0",
-    "@bifravst/aws-cdk-lambda-helpers": "1.2.1",
-    "@bifravst/run": "1.2.0",
-    "@hello.nrfcloud.com/lambda-helpers": "1.0.0",
-    "@nordicsemiconductor/cloudformation-helpers": "9.0.3",
-    "@nordicsemiconductor/from-env": "3.0.1",
-    "aws-cdk-lib": "2.135.0",
-    "cdk": "2.135.0",
-    "chalk": "5.3.0",
-    "tsx": "4.7.2"
+  "peerDependencies": {
+    "@aws-sdk/client-cloudformation": "^3.549.0",
+    "@aws-sdk/client-dynamodb": "^3.549.0",
+    "@aws-sdk/client-sts": "^3.549.0",
+    "@aws-sdk/util-dynamodb": "^3.549.0",
+    "@bifravst/aws-cdk-lambda-helpers": "^1.2.1",
+    "@bifravst/run": "^1.2.0",
+    "@hello.nrfcloud.com/lambda-helpers": "^1.0.0",
+    "@nordicsemiconductor/cloudformation-helpers": "^9.0.3",
+    "@nordicsemiconductor/from-env": "^3.0.1",
+    "aws-cdk-lib": "^2.135.0",
+    "cdk": "^2.135.0",
+    "chalk": "^5.3.0",
+    "tsx": "^4.7.2"
   }
 }

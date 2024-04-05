@@ -30,8 +30,6 @@ jobs:
         run: npx eslint .
       - name: Check if source code is properly formatted
         run: npx prettier -c ./
-      # - name: Test
-      #   run: npm test
       - name: Semantic release
         continue-on-error: true
         run: npx semantic-release
