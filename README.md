@@ -1,6 +1,6 @@
-# HTTP API Mock [![npm version](https://img.shields.io/npm/v/@hello.nrfcloud.com/http-api-mock.svg)](https://www.npmjs.com/package/@hello.nrfcloud.com/http-api-mock)
+# HTTP API Mock [![npm version](https://img.shields.io/npm/v/@bifravst/http-api-mock.svg)](https://www.npmjs.com/package/@bifravst/http-api-mock)
 
-[![GitHub Actions](https://github.com/hello-nrfcloud/http-api-mock/workflows/Test%20and%20Release/badge.svg)](https://github.com/hello-nrfcloud/http-api-mock/actions)
+[![GitHub Actions](https://github.com/bifravst/http-api-mock/workflows/Test%20and%20Release/badge.svg)](https://github.com/bifravst/http-api-mock/actions)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
 [![@commitlint/config-conventional](https://img.shields.io/badge/%40commitlint-config--conventional-brightgreen)](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional)
@@ -16,7 +16,7 @@ Configure your AWS credentials, see [.envrc.example](./.envrc.example).
 Create a new mock API:
 
 ```bash
-npx @hello.nrfcloud.com/http-api-mock
+npx @bifravst/http-api-mock
 
 {
   "stackName": "http-api-mock-69c2c4b9",
@@ -30,11 +30,11 @@ npx @hello.nrfcloud.com/http-api-mock
 ## Describe a mock HTTP API
 
 ```bash
-npx @hello.nrfcloud.com/http-api-mock describe <stackName>
+npx @bifravst/http-api-mock describe <stackName>
 ```
 
 ## Delete a mock HTTP API
 
 ```bash
-npx @hello.nrfcloud.com/http-api-mock destroy <stackName>
+npx @bifravst/http-api-mock destroy <stackName>
 ```

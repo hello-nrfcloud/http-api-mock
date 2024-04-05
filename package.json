@@ -1,5 +1,5 @@
 {
-  "name": "@hello.nrfcloud.com/http-api-mock",
+  "name": "@bifravst/http-api-mock",
   "version": "0.0.0-development",
   "description": "Helper functions for AWS lambdas written in TypeScript.",
   "exports": {
@@ -18,12 +18,12 @@
   "bin": "./cli.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hello-nrfcloud/http-api-mock.git"
+    "url": "git+https://github.com/bifravst/http-api-mock.git"
   },
   "bugs": {
-    "url": "https://github.com/hello-nrfcloud/http-api-mock/issues"
+    "url": "https://github.com/bifravst/http-api-mock/issues"
   },
-  "homepage": "https://github.com/hello-nrfcloud/http-api-mock",
+  "homepage": "https://github.com/bifravst/http-api-mock",
   "keywords": [
     "aws",
     "lambda",
