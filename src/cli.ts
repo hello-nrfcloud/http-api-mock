@@ -41,8 +41,8 @@ export const cli = async (): Promise<void> => {
 		command: 'npx',
 		args: ['cdk', ...cdkApp(), 'deploy', '--require-approval', 'never'],
 		env: {
-			STACK_NAME: stackName,
 			...process.env,
+			HTTP_API_MOCK_STACK_NAME: stackName,
 		},
 		log: {
 			debug: (msg) => console.error(chalk.blueBright('[CDK]'), chalk.blue(msg)),
@@ -74,8 +74,8 @@ const destroy = async (stackName: string) => {
 		command: 'npx',
 		args: ['cdk', ...cdkApp(), 'destroy', '-f'],
 		env: {
-			STACK_NAME: stackName,
 			...process.env,
+			HTTP_API_MOCK_STACK_NAME: stackName,
 		},
 		log: {
 			debug: (msg) => console.error(chalk.blueBright('[CDK]'), chalk.blue(msg)),

@@ -5,7 +5,9 @@ import { fromEnv } from '@nordicsemiconductor/from-env'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const { stackName } = fromEnv({ stackName: 'STACK_NAME' })(process.env)
+const { stackName } = fromEnv({ stackName: 'HTTP_API_MOCK_STACK_NAME' })(
+	process.env,
+)
 
 new HTTPAPIMockApp(stackName, {
 	lambdaSources: {
