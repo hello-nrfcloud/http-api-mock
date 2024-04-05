@@ -5,6 +5,7 @@ on: push
 permissions:
   contents: write
   issues: write
+  id-token: write
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -39,6 +40,16 @@ jobs:
 
       - name: Compile
         run: npm run prepublishOnly
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # The role is set up via https://github.com/hello-nrfcloud/ci
+          # secrets.AWS_ACCOUNT_ID_CI is an organization secret
+          role-to-assume: |
+            arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID_CI }}:role/hello-nrfcloud-ci-${{ github.event.repository.name }}
+          # vars.AWS_REGION_CI is an organization variable
+          aws-region: ${{ vars.AWS_REGION_CI }}
 
       - name: Deploy
         run: ./cli.js > http-api-mock.json
