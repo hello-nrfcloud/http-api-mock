@@ -34,46 +34,6 @@ export const handler = async (
 		query !== undefined ? `?${query.toString()}` : ''
 	}`
 
-	console.log({
-		TableName: process.env.REQUESTS_TABLE_NAME,
-		Item: {
-			methodPathQuery: {
-				S: `${event.httpMethod} ${pathWithQuery}`,
-			},
-			timestamp: {
-				S: new Date().toISOString(),
-			},
-			requestId: {
-				S: context.awsRequestId,
-			},
-			method: {
-				S: event.httpMethod,
-			},
-			path: {
-				S: pathWithQuery,
-			},
-			resource: { S: resource },
-			query:
-				query === undefined
-					? { NULL: true }
-					: {
-							M: [...query.entries()].reduce(
-								(o, [k, v]) => ({ ...o, [k]: v }),
-								{},
-							),
-						},
-			body: {
-				S: event.body ?? '{}',
-			},
-			headers: {
-				S: JSON.stringify(event.headers),
-			},
-			ttl: {
-				N: `${Math.round(Date.now() / 1000) + 5 * 60}`,
-			},
-		},
-	})
-
 	await db.send(
 		new PutItemCommand({
 			TableName: process.env.REQUESTS_TABLE_NAME,

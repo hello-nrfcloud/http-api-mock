@@ -17,5 +17,5 @@
     "noEmit": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["./src/**/*", "./cdk/**/*"]
+  "include": ["./src/**/*", "./cdk/**/*", "./e2e.spec.ts"]
 }
