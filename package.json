@@ -16,7 +16,9 @@
     "prepublishOnly": "npx tsc --noEmit false --outDir ./dist -d",
     "test": "npx globstar -- npx tsx --test --test-reporter spec \"!(dist|node_modules)/**/*.spec.ts\""
   },
-  "bin": "./cli.js",
+  "bin": {
+    "http-api-mock": "cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bifravst/http-api-mock.git"
