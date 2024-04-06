@@ -83,6 +83,7 @@
     "package-lock.json",
     "dist",
     "cdk",
+    "src",
     "cli.js",
     "LICENSE",
     "README.md"
