@@ -81,7 +81,8 @@
   },
   "files": [
     "package-lock.json",
-    "dist",
+    "dist/cdk",
+    "dist/src",
     "cdk",
     "src",
     "cli.js",
