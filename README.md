@@ -21,7 +21,6 @@ npx @bifravst/http-api-mock
 {
   "stackName": "http-api-mock-69c2c4b9",
   "responsesTableName": "http-api-mock-69c2c4b9-httpapimockresponses562FCFC7-C80OCULJKYFE",
-  "httpapimockapiEndpointF8DBD534": "https://liv73h149l.execute-api.eu-west-1.amazonaws.com/prod/",
   "apiURL": "https://liv73h149l.execute-api.eu-west-1.amazonaws.com/prod/",
   "requestsTableName": "http-api-mock-69c2c4b9-httpapimockrequests2216D487-608PM7EHETW4"
 }
