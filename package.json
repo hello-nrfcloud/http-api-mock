@@ -82,7 +82,6 @@
     "access": "public"
   },
   "files": [
-    "package-lock.json",
     "dist/cdk",
     "dist/src",
     "cdk",
