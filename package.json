@@ -106,7 +106,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.552.0",
     "@aws-sdk/util-dynamodb": "3.552.0",
-    "@hello.nrfcloud.com/lambda-helpers": "1.0.0",
+    "@hello.nrfcloud.com/lambda-helpers": "1.0.1",
     "@nordicsemiconductor/from-env": "3.0.1"
   }
 }
