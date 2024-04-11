@@ -2,12 +2,21 @@ import { packLayer } from '@bifravst/aws-cdk-lambda-helpers/layer'
 import { packLambdaFromPath } from '@bifravst/aws-cdk-lambda-helpers'
 import { HTTPAPIMockApp } from './App.js'
 import { fromEnv } from '@nordicsemiconductor/from-env'
-import path, { dirname } from 'node:path'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import fs from 'node:fs/promises'
+import os from 'node:os'
 
 const { stackName } = fromEnv({ stackName: 'HTTP_API_MOCK_STACK_NAME' })(
 	process.env,
 )
+
+const baseDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
+const distDir = await fs.mkdtemp(path.join(os.tmpdir(), 'temp-'))
+const lambdasDir = path.join(distDir, 'lambdas')
+await fs.mkdir(lambdasDir)
+const layersDir = path.join(distDir, 'layers')
+await fs.mkdir(layersDir)
 
 new HTTPAPIMockApp(stackName, {
 	lambdaSources: {
@@ -15,7 +24,8 @@ new HTTPAPIMockApp(stackName, {
 			'httpApiMock',
 			'cdk/resources/http-api-mock-lambda.ts',
 			undefined,
-			path.join(dirname(fileURLToPath(import.meta.url)), '..'),
+			baseDir,
+			lambdasDir,
 		),
 	},
 	layer: await packLayer({
@@ -25,5 +35,7 @@ new HTTPAPIMockApp(stackName, {
 			'@nordicsemiconductor/from-env',
 			'@hello.nrfcloud.com/lambda-helpers',
 		],
+		baseDir,
+		distDir: layersDir,
 	}),
 })
