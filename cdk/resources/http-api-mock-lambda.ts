@@ -2,7 +2,7 @@ import {
 	DeleteItemCommand,
 	DynamoDBClient,
 	PutItemCommand,
-	QueryCommand,
+	ScanCommand,
 } from '@aws-sdk/client-dynamodb'
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb'
 import type {
@@ -56,17 +56,16 @@ export const handler = async (
 	console.debug(
 		`Checking if response exists for ${event.httpMethod} ${pathWithQuery}...`,
 	)
-	// Query using httpMethod and path only
+	// Scan using httpMethod and path only so query strings can be partially matched
 	const { Items } = await db.send(
-		new QueryCommand({
+		new ScanCommand({
 			TableName: process.env.RESPONSES_TABLE_NAME,
-			KeyConditionExpression: 'methodPathQuery = :methodPathQuery',
+			FilterExpression: 'begins_with(methodPathQuery, :methodPath)',
 			ExpressionAttributeValues: {
-				[':methodPathQuery']: {
-					S: `${event.httpMethod} ${pathWithQuery}`,
+				[':methodPath']: {
+					S: `${event.httpMethod} ${path}`,
 				},
 			},
-			ScanIndexForward: false,
 		}),
 	)
 	console.debug(`Found response items: ${Items?.length}`)
