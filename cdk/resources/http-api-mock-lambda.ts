@@ -21,6 +21,7 @@ export const handler = async (
 	event: APIGatewayEvent,
 	context: Context,
 ): Promise<APIGatewayProxyResult> => {
+	console.log(JSON.stringify({ event }))
 	const query =
 		event.queryStringParameters !== null &&
 		event.queryStringParameters !== undefined
@@ -88,7 +89,7 @@ export const handler = async (
 			KeyConditionExpression: 'methodPathQuery = :methodPathQuery',
 			ExpressionAttributeValues: {
 				[':methodPathQuery']: {
-					S: `${event.httpMethod} ${event.path.replace(/^\//, '')}`,
+					S: `${event.httpMethod} ${pathWithQuery}`,
 				},
 			},
 			ScanIndexForward: false,
