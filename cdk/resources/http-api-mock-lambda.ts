@@ -71,7 +71,8 @@ export const handler = async (
 	console.debug(`Found response items: ${Items?.length}`)
 
 	let res: APIGatewayProxyResult | undefined
-	for (const Item of Items ?? []) {
+	for (const Item of (Items ?? []).reverse()) {
+		// use newest response first
 		const objItem = unmarshall(Item)
 		const hasExpectedQueryParams = 'queryParams' in objItem
 		const matchedQueryParams = hasExpectedQueryParams
