@@ -39,9 +39,9 @@ void describe('end-to-end tests', () => {
 		await registerResponse(db, responsesTableName, {
 			method: 'PUT',
 			path: pathSegment,
-			queryParams: {
+			queryParams: new URLSearchParams({
 				foo: 'bar',
-			},
+			}),
 			body: [
 				`Content-Type: application/json`,
 				'',
