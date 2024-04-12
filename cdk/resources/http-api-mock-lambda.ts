@@ -14,6 +14,7 @@ import { URLSearchParams } from 'url'
 import { checkMatchingQueryParams } from './checkMatchingQueryParams.js'
 import { splitMockResponse } from './splitMockResponse.js'
 import { sortQueryString } from '../../src/sortQueryString.js'
+import { URLSearchParamsToObject } from '../../src/URLSearchParamsToObject.js'
 
 const db = new DynamoDBClient({})
 
@@ -37,44 +38,17 @@ export const handler = async (
 	await db.send(
 		new PutItemCommand({
 			TableName: process.env.REQUESTS_TABLE_NAME,
-			Item: {
-				methodPathQuery: {
-					S: `${event.httpMethod} ${pathWithQuery}`,
-				},
-				timestamp: {
-					S: new Date().toISOString(),
-				},
-				requestId: {
-					S: context.awsRequestId,
-				},
-				method: {
-					S: event.httpMethod,
-				},
-				path: {
-					S: pathWithQuery,
-				},
-				resource: { S: path },
-				query:
-					query === undefined
-						? { NULL: true }
-						: {
-								M: marshall(
-									[...query.entries()].reduce(
-										(o, [k, v]) => ({ ...o, [k]: v }),
-										{},
-									),
-								),
-							},
-				body: {
-					S: event.body ?? '{}',
-				},
-				headers: {
-					S: JSON.stringify(event.headers),
-				},
-				ttl: {
-					N: `${Math.round(Date.now() / 1000) + 5 * 60}`,
-				},
-			},
+			Item: marshall({
+				methodPathQuery: `${event.httpMethod} ${pathWithQuery}`,
+				timestamp: new Date().toISOString(),
+				requestId: context.awsRequestId,
+				method: event.httpMethod,
+				path,
+				query: query === undefined ? null : URLSearchParamsToObject(query),
+				body: event.body ?? '{}',
+				headers: JSON.stringify(event.headers),
+				ttl: Math.round(Date.now() / 1000) + 5 * 60,
+			}),
 		}),
 	)
 
