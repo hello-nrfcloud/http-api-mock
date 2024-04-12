@@ -82,7 +82,7 @@
     "README.md"
   ],
   "prettier": "@bifravst/prettier-config",
-  "peerDependencies": {
+  "dependencies": {
     "@aws-sdk/client-cloudformation": "^3.554.0",
     "@aws-sdk/client-dynamodb": "^3.554.0",
     "@aws-sdk/client-sts": "^3.554.0",
@@ -96,7 +96,6 @@
     "chalk": "^5.3.0",
     "tsx": "^4.7.2"
   },
-  "dependencies": {},
   "devDependencies": {
     "@bifravst/eslint-config-typescript": "6.0.22",
     "@bifravst/prettier-config": "1.0.0",

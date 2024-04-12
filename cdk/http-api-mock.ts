@@ -6,6 +6,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import fs from 'node:fs/promises'
 import os from 'node:os'
+import pJSON from '../package.json'
 
 const { stackName } = fromEnv({ stackName: 'HTTP_API_MOCK_STACK_NAME' })(
 	process.env,
@@ -17,6 +18,10 @@ const lambdasDir = path.join(distDir, 'lambdas')
 await fs.mkdir(lambdasDir)
 const layersDir = path.join(distDir, 'layers')
 await fs.mkdir(layersDir)
+
+const dependencies: Array<keyof (typeof pJSON)['dependencies']> = [
+	'@nordicsemiconductor/from-env',
+]
 
 new HTTPAPIMockApp(stackName, {
 	lambdaSources: {
@@ -30,7 +35,7 @@ new HTTPAPIMockApp(stackName, {
 	},
 	layer: await packLayer({
 		id: 'testResources',
-		dependencies: ['@aws-sdk/client-dynamodb', '@nordicsemiconductor/from-env'],
+		dependencies,
 		baseDir,
 		distDir: layersDir,
 	}),
