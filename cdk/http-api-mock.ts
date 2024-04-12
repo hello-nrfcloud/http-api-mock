@@ -30,11 +30,7 @@ new HTTPAPIMockApp(stackName, {
 	},
 	layer: await packLayer({
 		id: 'testResources',
-		dependencies: [
-			'@aws-sdk/client-dynamodb',
-			'@nordicsemiconductor/from-env',
-			'@hello.nrfcloud.com/lambda-helpers',
-		],
+		dependencies: ['@aws-sdk/client-dynamodb', '@nordicsemiconductor/from-env'],
 		baseDir,
 		distDir: layersDir,
 	}),

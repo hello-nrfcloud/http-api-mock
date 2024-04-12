@@ -11,13 +11,11 @@ import type {
 	Context,
 } from 'aws-lambda'
 import { URLSearchParams } from 'url'
-import { logger } from '@hello.nrfcloud.com/lambda-helpers/logger'
 import { checkMatchingQueryParams } from './checkMatchingQueryParams.js'
 import { splitMockResponse } from './splitMockResponse.js'
 import { sortQueryString } from '../../src/sortQueryString.js'
 
 const db = new DynamoDBClient({})
-const log = logger('httpApiMock')
 
 export const handler = async (
 	event: APIGatewayEvent,
@@ -80,7 +78,7 @@ export const handler = async (
 	)
 
 	// Check if response exists
-	log.info(
+	console.debug(
 		`Checking if response exists for ${event.httpMethod} ${pathWithQuery}...`,
 	)
 	// Query using httpMethod and path only
@@ -96,7 +94,7 @@ export const handler = async (
 			ScanIndexForward: false,
 		}),
 	)
-	log.debug(`Found response items: ${Items?.length}`)
+	console.debug(`Found response items: ${Items?.length}`)
 
 	let res: APIGatewayProxyResult | undefined
 	for (const Item of Items ?? []) {
@@ -106,7 +104,6 @@ export const handler = async (
 			? checkMatchingQueryParams(
 					event.queryStringParameters,
 					objItem.queryParams,
-					log,
 				)
 			: true
 		if (matchedQueryParams === false) continue
@@ -144,7 +141,7 @@ export const handler = async (
 				: body,
 			isBase64Encoded: isBinary,
 		}
-		log.info(`Return response`, { response: res })
+		console.debug(`Return response`, JSON.stringify({ response: res }))
 
 		break
 	}
@@ -153,6 +150,6 @@ export const handler = async (
 		return res
 	}
 
-	log.warn('No responses found')
+	console.debug('No responses found')
 	return { statusCode: 404, body: '' }
 }
