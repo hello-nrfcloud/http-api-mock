@@ -40,7 +40,7 @@ export const registerResponse = async (
 							? URLSearchParamsToObject(response.queryParams)
 							: undefined,
 					ttl: response.ttl,
-					keep: response.ttl,
+					keep: response.keep,
 				},
 				{ removeUndefinedValues: true },
 			),

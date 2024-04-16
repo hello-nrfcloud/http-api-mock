@@ -10,11 +10,12 @@ type MockResponseFn = (
 		status: number
 		body: string
 	}>,
+	keep?: boolean,
 ) => Promise<void>
 
 export const mockResponse =
 	(db: DynamoDBClient, responsesTable: string): MockResponseFn =>
-	async (methodPathQuery, response) => {
+	async (methodPathQuery, response, keep) => {
 		const [method, pathWithQuery] = methodPathQuery.split(' ', 2)
 		if (!/^[A-Z]+$/.test(method ?? ''))
 			throw new Error(`Invalid method ${method} in ${methodPathQuery}!`)
@@ -41,6 +42,7 @@ export const mockResponse =
 			queryParams: new URLSearchParams(query),
 			body: bodyParts.length > 0 ? bodyParts.join('\n') : undefined,
 			statusCode: response.status,
+			keep,
 		})
 	}
 
