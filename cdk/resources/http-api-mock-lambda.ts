@@ -69,11 +69,13 @@ export const handler = async (
 		}),
 	)
 	console.debug(`Found response items: ${Items?.length}`)
+	// use newest response first
+	const itemsByTimestampDesc = (Items ?? [])
+		.map((Item) => unmarshall(Item))
+		.sort((a, b) => b.timestamp.localeCompare(a.timestamp))
 
 	let res: APIGatewayProxyResult | undefined
-	for (const Item of (Items ?? []).reverse()) {
-		// use newest response first
-		const objItem = unmarshall(Item)
+	for (const objItem of itemsByTimestampDesc) {
 		const hasExpectedQueryParams = 'queryParams' in objItem
 		const matchedQueryParams = hasExpectedQueryParams
 			? checkMatchingQueryParams(
@@ -84,27 +86,27 @@ export const handler = async (
 		if (matchedQueryParams === false) continue
 
 		if (
-			Item?.methodPathQuery !== undefined &&
-			Item?.timestamp !== undefined &&
-			Item?.keep?.BOOL !== true
+			objItem?.methodPathQuery !== undefined &&
+			objItem?.timestamp !== undefined &&
+			objItem?.keep !== true
 		) {
 			await db.send(
 				new DeleteItemCommand({
 					TableName: process.env.RESPONSES_TABLE_NAME,
-					Key: {
-						methodPathQuery: Item.methodPathQuery,
-						timestamp: Item.timestamp,
-					},
+					Key: marshall({
+						methodPathQuery: objItem.methodPathQuery,
+						timestamp: objItem.timestamp,
+					}),
 				}),
 			)
 		}
 
-		const { body, headers } = splitMockResponse(Item.body?.S ?? '')
+		const { body, headers } = splitMockResponse(objItem.body ?? '')
 
 		// Send as binary, if mock response is HEX encoded. See https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-payload-encodings.html
 		const isBinary = /^[0-9a-f]+$/.test(body)
 		res = {
-			statusCode: parseInt(Item.statusCode?.N ?? '200', 10),
+			statusCode: objItem.statusCode ?? 200,
 			headers: isBinary
 				? {
 						...headers,
