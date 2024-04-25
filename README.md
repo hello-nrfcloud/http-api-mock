@@ -11,7 +11,7 @@ Provides a mock HTTP API for testing third-party API integrations.
 
 ## Create a new mock HTTP API
 
-Configure your AWS credentials, see [.envrc.example](./.envrc.example).
+[Provide your AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-authentication.html).
 
 Create a new mock API:
 
