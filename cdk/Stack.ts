@@ -1,4 +1,5 @@
-import { App, CfnOutput, aws_lambda as Lambda, Stack } from 'aws-cdk-lib'
+import type { App } from 'aws-cdk-lib'
+import { CfnOutput, aws_lambda as Lambda, Stack } from 'aws-cdk-lib'
 import type { PackedLambda } from '@bifravst/aws-cdk-lambda-helpers'
 import type { PackedLayer } from '@bifravst/aws-cdk-lambda-helpers/layer'
 import { LambdaSource } from '@bifravst/aws-cdk-lambda-helpers/cdk'
