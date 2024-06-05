@@ -68,7 +68,9 @@ export const handler = async (
 			},
 		}),
 	)
-	console.debug(`Found response items: ${Items?.length}`)
+	console.debug(
+		`Found response items beginning with same path: ${Items?.length}`,
+	)
 	// use newest response first
 	const itemsByTimestampDesc = (Items ?? [])
 		.map((Item) => unmarshall(Item))
@@ -76,7 +78,8 @@ export const handler = async (
 
 	let res: APIGatewayProxyResult | undefined
 	for (const objItem of itemsByTimestampDesc) {
-		const hasExpectedQueryParams = 'queryParams' in objItem
+		const hasExpectedQueryParams =
+			'queryParams' in objItem || query !== undefined
 		const matchedQueryParams = hasExpectedQueryParams
 			? checkMatchingQueryParams(
 					event.queryStringParameters,
@@ -84,6 +87,8 @@ export const handler = async (
 				)
 			: true
 		if (matchedQueryParams === false) continue
+
+		console.debug(`Matched response`, JSON.stringify({ response: objItem }))
 
 		if (
 			objItem?.methodPathQuery !== undefined &&
