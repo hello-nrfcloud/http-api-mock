@@ -1,7 +1,6 @@
 import { PutItemCommand, type DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { marshall } from '@aws-sdk/util-dynamodb'
 import { sortQuery } from './sortQueryString.js'
-import { URLSearchParamsToObject } from './URLSearchParamsToObject.js'
 
 export type Response = {
 	// e.g. 'GET'
@@ -37,7 +36,7 @@ export const registerResponse = async (
 					body: response.body,
 					queryParams:
 						response.queryParams !== undefined
-							? URLSearchParamsToObject(response.queryParams)
+							? Object.fromEntries(response.queryParams)
 							: undefined,
 					ttl: response.ttl,
 					keep: response.keep,

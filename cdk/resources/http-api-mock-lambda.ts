@@ -14,7 +14,6 @@ import { URLSearchParams } from 'url'
 import { checkMatchingQueryParams } from './checkMatchingQueryParams.js'
 import { splitMockResponse } from './splitMockResponse.js'
 import { sortQueryString } from '../../src/sortQueryString.js'
-import { URLSearchParamsToObject } from '../../src/URLSearchParamsToObject.js'
 
 const db = new DynamoDBClient({})
 
@@ -44,7 +43,7 @@ export const handler = async (
 				requestId: context.awsRequestId,
 				method: event.httpMethod,
 				path,
-				query: query === undefined ? null : URLSearchParamsToObject(query),
+				query: query === undefined ? null : Object.fromEntries(query),
 				body: event.body ?? '{}',
 				headers: JSON.stringify(event.headers),
 				ttl: Math.round(Date.now() / 1000) + 5 * 60,
