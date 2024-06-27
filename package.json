@@ -81,7 +81,7 @@
   "dependencies": {
     "@aws-sdk/client-cloudformation": "^3.600.0",
     "@aws-sdk/client-dynamodb": "^3.602.0",
-    "@aws-sdk/client-sts": "^3.600.0",
+    "@aws-sdk/client-sts": "^3.606.0",
     "@aws-sdk/util-dynamodb": "^3.602.0",
     "@bifravst/aws-cdk-lambda-helpers": "^1.8.19",
     "@bifravst/run": "^1.2.0",
