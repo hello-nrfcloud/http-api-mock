@@ -1,7 +1,7 @@
 import { packLayer } from '@bifravst/aws-cdk-lambda-helpers/layer'
 import { packLambdaFromPath } from '@bifravst/aws-cdk-lambda-helpers'
 import { HTTPAPIMockApp } from './App.js'
-import { fromEnv } from '@nordicsemiconductor/from-env'
+import { fromEnv } from '@bifravst/from-env'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import fs from 'node:fs/promises'
@@ -20,7 +20,7 @@ const layersDir = path.join(distDir, 'layers')
 await fs.mkdir(layersDir)
 
 const dependencies: Array<keyof (typeof pJSON)['dependencies']> = [
-	'@nordicsemiconductor/from-env',
+	'@bifravst/from-env',
 ]
 
 new HTTPAPIMockApp(stackName, {
