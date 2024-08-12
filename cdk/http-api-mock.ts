@@ -1,12 +1,12 @@
-import { packLayer } from '@bifravst/aws-cdk-lambda-helpers/layer'
 import { packLambdaFromPath } from '@bifravst/aws-cdk-lambda-helpers'
-import { HTTPAPIMockApp } from './App.js'
+import { packLayer } from '@bifravst/aws-cdk-lambda-helpers/layer'
 import { fromEnv } from '@bifravst/from-env'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import fs from 'node:fs/promises'
 import os from 'node:os'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type pJSON from '../package.json'
+import { HTTPAPIMockApp } from './App.js'
 
 const { stackName } = fromEnv({ stackName: 'HTTP_API_MOCK_STACK_NAME' })(
 	process.env,

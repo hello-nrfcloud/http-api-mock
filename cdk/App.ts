@@ -1,7 +1,7 @@
-import { App } from 'aws-cdk-lib'
-import { HTTPAPIMockStack } from './Stack.js'
 import type { PackedLambda } from '@bifravst/aws-cdk-lambda-helpers'
 import type { PackedLayer } from '@bifravst/aws-cdk-lambda-helpers/layer'
+import { App } from 'aws-cdk-lib'
+import { HTTPAPIMockStack } from './Stack.js'
 
 export class HTTPAPIMockApp extends App {
 	public constructor(
