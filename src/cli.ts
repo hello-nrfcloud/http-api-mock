@@ -1,12 +1,12 @@
-import { randomString } from './randomString.js'
-import run from '@bifravst/run'
-import { GetCallerIdentityCommand, STSClient } from '@aws-sdk/client-sts'
-import chalk from 'chalk'
-import { stackOutput } from '@bifravst/cloudformation-helpers'
-import type { StackOutputs } from '../cdk/Stack.js'
 import { CloudFormationClient } from '@aws-sdk/client-cloudformation'
+import { GetCallerIdentityCommand, STSClient } from '@aws-sdk/client-sts'
+import { stackOutput } from '@bifravst/cloudformation-helpers'
+import run from '@bifravst/run'
+import chalk from 'chalk'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import type { StackOutputs } from '../cdk/Stack.js'
+import { randomString } from './randomString.js'
 
 const die = (err: Error): void => {
 	console.error('')

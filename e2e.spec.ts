@@ -1,10 +1,10 @@
-import { listRequests } from './src/requests.js'
-import { registerResponse } from './src/responses.js'
-import { describe, it } from 'node:test'
-import assert from 'node:assert/strict'
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
+import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { describe, it } from 'node:test'
+import { listRequests } from './src/requests.js'
+import { registerResponse } from './src/responses.js'
 
 const { responsesTableName, apiURL, requestsTableName } = JSON.parse(
 	await readFile(path.join(process.cwd(), 'http-api-mock.json'), 'utf-8'),

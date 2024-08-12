@@ -11,9 +11,9 @@ import type {
 	Context,
 } from 'aws-lambda'
 import { URLSearchParams } from 'url'
+import { sortQueryString } from '../../src/sortQueryString.js'
 import { checkMatchingQueryParams } from './checkMatchingQueryParams.js'
 import { splitMockResponse } from './splitMockResponse.js'
-import { sortQueryString } from '../../src/sortQueryString.js'
 
 const db = new DynamoDBClient({})
 
