@@ -99,6 +99,6 @@
     "@types/aws-lambda": "8.10.145",
     "@types/node": "20.16.5",
     "globstar": "1.0.0",
-    "husky": "9.1.5"
+    "husky": "9.1.6"
   }
 }
