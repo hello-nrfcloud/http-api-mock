@@ -1,5 +1,6 @@
 import { PutItemCommand, type DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { marshall } from '@aws-sdk/util-dynamodb'
+import { randomUUID } from 'node:crypto'
 import { sortQuery } from './sortQueryString.js'
 
 export type Response = {
@@ -30,6 +31,7 @@ export const registerResponse = async (
 			TableName: responsesTable,
 			Item: marshall(
 				{
+					responseId: randomUUID(),
 					methodPathQuery: `${response.method} ${response.path}${response.queryParams !== undefined ? `?${sortQuery(response.queryParams)}` : ``}`,
 					timestamp: new Date().toISOString(),
 					statusCode: response.statusCode,
