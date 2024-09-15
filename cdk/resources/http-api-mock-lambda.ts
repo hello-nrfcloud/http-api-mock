@@ -90,7 +90,7 @@ export const handler = async (
 		console.debug(`Matched response`, JSON.stringify({ response: objItem }))
 
 		if (
-			objItem?.methodPathQuery !== undefined &&
+			objItem?.requestId !== undefined &&
 			objItem?.timestamp !== undefined &&
 			objItem?.keep !== true
 		) {
@@ -98,7 +98,7 @@ export const handler = async (
 				new DeleteItemCommand({
 					TableName: process.env.RESPONSES_TABLE_NAME,
 					Key: marshall({
-						methodPathQuery: objItem.methodPathQuery,
+						requestId: objItem.requestId,
 						timestamp: objItem.timestamp,
 					}),
 				}),

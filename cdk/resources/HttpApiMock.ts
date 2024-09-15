@@ -38,7 +38,7 @@ export class HttpApiMock extends Resource {
 		this.requestsTable = new DynamoDB.Table(this, 'requests', {
 			billingMode: DynamoDB.BillingMode.PAY_PER_REQUEST,
 			partitionKey: {
-				name: 'methodPathQuery',
+				name: 'requestId',
 				type: DynamoDB.AttributeType.STRING,
 			},
 			sortKey: {
@@ -54,7 +54,7 @@ export class HttpApiMock extends Resource {
 		this.responsesTable = new DynamoDB.Table(this, 'responses', {
 			billingMode: DynamoDB.BillingMode.PAY_PER_REQUEST,
 			partitionKey: {
-				name: 'methodPathQuery',
+				name: 'responseId',
 				type: DynamoDB.AttributeType.STRING,
 			},
 			sortKey: {
