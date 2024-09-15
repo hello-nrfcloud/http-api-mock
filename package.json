@@ -98,6 +98,7 @@
     "@commitlint/config-conventional": "19.5.0",
     "@types/aws-lambda": "8.10.145",
     "@types/node": "20.16.5",
+    "commitlint": "19.5.0",
     "globstar": "1.0.0",
     "husky": "9.1.6"
   }
