@@ -17,8 +17,8 @@ import type { Construct } from 'constructs'
 
 export class HttpApiMock extends Resource {
 	public readonly api: ApiGateway.RestApi
-	public readonly requestsTable: DynamoDB.ITable
-	public readonly responsesTable: DynamoDB.ITable
+	public readonly requestsTable: DynamoDB.Table
+	public readonly responsesTable: DynamoDB.Table
 
 	public constructor(
 		parent: Construct,
@@ -49,6 +49,14 @@ export class HttpApiMock extends Resource {
 			removalPolicy: RemovalPolicy.DESTROY,
 			timeToLiveAttribute: 'ttl',
 		})
+		this.requestsTable.addGlobalSecondaryIndex({
+			indexName: 'methodPathQuery',
+			partitionKey: {
+				name: 'methodPathQuery',
+				type: DynamoDB.AttributeType.STRING,
+			},
+			projectionType: DynamoDB.ProjectionType.ALL,
+		})
 
 		// This table will store optional responses to be sent
 		this.responsesTable = new DynamoDB.Table(this, 'responses', {
@@ -64,6 +72,14 @@ export class HttpApiMock extends Resource {
 			pointInTimeRecovery: true,
 			removalPolicy: RemovalPolicy.DESTROY,
 			timeToLiveAttribute: 'ttl',
+		})
+		this.responsesTable.addGlobalSecondaryIndex({
+			indexName: 'methodPathQuery',
+			partitionKey: {
+				name: 'methodPathQuery',
+				type: DynamoDB.AttributeType.STRING,
+			},
+			projectionType: DynamoDB.ProjectionType.ALL,
 		})
 
 		// This lambda will publish all requests made to the API Gateway in the queue
