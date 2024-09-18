@@ -46,7 +46,6 @@ export const handler = async (
 				query: query === undefined ? null : Object.fromEntries(query),
 				body: event.body ?? '{}',
 				headers: JSON.stringify(event.headers),
-				ttl: Math.round(Date.now() / 1000) + 5 * 60,
 			}),
 		}),
 	)

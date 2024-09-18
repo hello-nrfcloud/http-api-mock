@@ -47,7 +47,6 @@ export class HttpApiMock extends Resource {
 			},
 			pointInTimeRecovery: true,
 			removalPolicy: RemovalPolicy.DESTROY,
-			timeToLiveAttribute: 'ttl',
 		})
 		this.requestsTable.addGlobalSecondaryIndex({
 			indexName: 'methodPathQuery',
