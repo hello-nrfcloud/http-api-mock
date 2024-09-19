@@ -34,21 +34,16 @@ export const handler = async (
 		`${path}${query !== undefined ? `?${query.toString()}` : ''}`,
 	)
 
-	await db.send(
-		new PutItemCommand({
-			TableName: process.env.REQUESTS_TABLE_NAME,
-			Item: marshall({
-				methodPathQuery: `${event.httpMethod} ${pathWithQuery}`,
-				timestamp: new Date().toISOString(),
-				requestId: context.awsRequestId,
-				method: event.httpMethod,
-				path,
-				query: query === undefined ? null : Object.fromEntries(query),
-				body: event.body ?? '{}',
-				headers: JSON.stringify(event.headers),
-			}),
-		}),
-	)
+	const request = {
+		methodPathQuery: `${event.httpMethod} ${pathWithQuery}`,
+		timestamp: new Date().toISOString(),
+		requestId: context.awsRequestId,
+		method: event.httpMethod,
+		path,
+		query: query === undefined ? null : Object.fromEntries(query),
+		body: event.body ?? '{}',
+		headers: JSON.stringify(event.headers),
+	}
 
 	// Check if response exists
 	console.debug(
@@ -74,7 +69,10 @@ export const handler = async (
 		.map((Item) => unmarshall(Item))
 		.sort((a, b) => b.timestamp.localeCompare(a.timestamp))
 
-	let res: APIGatewayProxyResult | undefined
+	let res: APIGatewayProxyResult = {
+		statusCode: 404,
+		body: 'No responses found',
+	}
 	for (const objItem of itemsByTimestampDesc) {
 		const hasExpectedQueryParams =
 			'queryParams' in objItem || query !== undefined
@@ -121,15 +119,29 @@ export const handler = async (
 				: body,
 			isBase64Encoded: isBinary,
 		}
-		console.debug(`Return response`, JSON.stringify({ response: res }))
 
 		break
 	}
 
-	if (res !== undefined) {
-		return res
-	}
+	console.debug(`Return response`, JSON.stringify({ response: res }))
 
-	console.debug('No responses found')
-	return { statusCode: 404, body: '' }
+	await db.send(
+		new PutItemCommand({
+			TableName: process.env.REQUESTS_TABLE_NAME,
+			Item: marshall(
+				{
+					...request,
+					responseStatusCode: res.statusCode,
+					responseHeaders: res.headers,
+					responseBody: res.body,
+					responseIsBase64Encoded: res.isBase64Encoded,
+				},
+				{
+					removeUndefinedValues: true,
+				},
+			),
+		}),
+	)
+
+	return res
 }
