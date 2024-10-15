@@ -79,7 +79,7 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "dependencies": {
-    "@aws-sdk/client-cloudformation": "^3.670.0",
+    "@aws-sdk/client-cloudformation": "^3.672.0",
     "@aws-sdk/client-dynamodb": "^3.670.0",
     "@aws-sdk/client-sts": "^3.670.0",
     "@aws-sdk/util-dynamodb": "^3.670.0",
