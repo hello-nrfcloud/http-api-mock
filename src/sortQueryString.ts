@@ -1,3 +1,5 @@
+import { URLSearchParams } from 'node:url'
+
 export const sortQueryString = (mockUrl: string): string => {
 	const [host, query] = mockUrl.split('?', 2) as [string, string | undefined]
 	if (query === undefined || (query?.length ?? 0) === 0) return host
