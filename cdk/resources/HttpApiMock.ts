@@ -89,7 +89,7 @@ export class HttpApiMock extends Resource {
 			layers,
 			handler: lambdaSources.httpApiMock.handler,
 			architecture: Lambda.Architecture.ARM_64,
-			runtime: Lambda.Runtime.NODEJS_20_X,
+			runtime: Lambda.Runtime.NODEJS_22_X,
 			timeout: Duration.seconds(5),
 			environment: {
 				REQUESTS_TABLE_NAME: this.requestsTable.tableName,
