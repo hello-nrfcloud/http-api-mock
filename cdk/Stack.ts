@@ -35,7 +35,7 @@ export class HTTPAPIMockStack extends Stack {
 				hash: layer.hash,
 			}).code,
 			compatibleArchitectures: [Lambda.Architecture.ARM_64],
-			compatibleRuntimes: [Lambda.Runtime.NODEJS_20_X],
+			compatibleRuntimes: [Lambda.Runtime.NODEJS_22_X],
 		})
 
 		const httpMockApi = new HttpApiMock(this, {
