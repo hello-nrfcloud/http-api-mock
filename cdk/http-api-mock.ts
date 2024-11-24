@@ -5,7 +5,7 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type pJSON from '../package.json'
+import pJSON from '../package.json' assert { type: 'json' }
 import { HTTPAPIMockApp } from './App.js'
 
 const { stackName } = fromEnv({ stackName: 'HTTP_API_MOCK_STACK_NAME' })(
@@ -25,13 +25,12 @@ const dependencies: Array<keyof (typeof pJSON)['dependencies']> = [
 
 new HTTPAPIMockApp(stackName, {
 	lambdaSources: {
-		httpApiMock: await packLambdaFromPath(
-			'httpApiMock',
-			'cdk/resources/http-api-mock-lambda.ts',
-			undefined,
+		httpApiMock: await packLambdaFromPath({
+			id: 'httpApiMock',
+			sourceFilePath: 'cdk/resources/http-api-mock-lambda.ts',
 			baseDir,
-			lambdasDir,
-		),
+			distDir: lambdasDir,
+		}),
 	},
 	layer: await packLayer({
 		id: 'testResources',
