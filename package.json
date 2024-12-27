@@ -83,7 +83,7 @@
     "@aws-sdk/client-dynamodb": "3.716.0",
     "@aws-sdk/client-sts": "3.716.0",
     "@aws-sdk/util-dynamodb": "3.716.0",
-    "@bifravst/aws-cdk-lambda-helpers": "2.3.5",
+    "@bifravst/aws-cdk-lambda-helpers": "2.3.7",
     "@bifravst/cloudformation-helpers": "9.1.1",
     "@bifravst/from-env": "3.0.2",
     "@bifravst/run": "1.2.0",
