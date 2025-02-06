@@ -87,8 +87,8 @@
     "@bifravst/cloudformation-helpers": "9.1.1",
     "@bifravst/from-env": "3.0.2",
     "@bifravst/run": "1.2.0",
-    "aws-cdk-lib": "2.177.0",
-    "cdk": "2.177.0",
+    "aws-cdk-lib": "2.178.0",
+    "cdk": "2.178.0",
     "chalk": "5.4.1",
     "tsx": "4.19.2"
   },
