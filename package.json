@@ -88,7 +88,7 @@
     "@bifravst/from-env": "3.0.2",
     "@bifravst/run": "1.2.0",
     "aws-cdk-lib": "2.179.0",
-    "cdk": "2.179.0",
+    "cdk": "2.1000.2",
     "chalk": "5.4.1",
     "tsx": "4.19.3"
   },
